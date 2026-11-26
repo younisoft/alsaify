@@ -12,7 +12,9 @@
     "test:emulator": "firebase emulators:exec --only firestore,auth --project demo-darkcloud \"npm run test -w functions\"",
     "test": "npm run test:unit && npm run test:emulator",
     "typecheck": "tsc -p shared && tsc -p functions && tsc -p web",
-    "dev": "firebase emulators:exec --only auth,firestore,functions,storage --project demo-darkcloud --ui \"npm run dev -w web\""
+    "dev": "firebase emulators:exec --only auth,firestore,functions,storage --project demo-darkcloud --ui \"npm run dev -w web\"",
+    "migrate:dryrun": "esbuild scripts/migrate-from-excel.ts --bundle --platform=node --format=esm --packages=external --outfile=scripts/.migrate.mjs --log-level=warning && node scripts/.migrate.mjs",
+    "test:e2e": "node web/e2e/e2e.mjs"
   },
   "devDependencies": {
     "@firebase/rules-unit-testing": "^6.0.0",

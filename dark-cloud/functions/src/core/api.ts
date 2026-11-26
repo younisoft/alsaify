@@ -10,7 +10,14 @@ const PRE_AUTH = new Set(['auth.claimInvitation', 'me.get']);
 
 function zodMessage(e: z.ZodError): string {
   const i = e.issues[0];
-  return `${i.message}${i.path.length ? ` (${i.path.join('.')})` : ''}`;
+  const field = i.path.length ? ` (${i.path.join('.')})` : '';
+  return /[\u0600-\u06FF]/.test(i.message) ? `${i.message}${field}` : `قيمة غير صالحة أو حقل مطلوب ناقص${field}`;
+}
+/** Callable clients may encode "absent" as null; treat null in an object as an absent optional field. */
+function dropNulls(v: unknown, keepNullKeys = new Set(['portalDistributorId', 'assigneeUid', 'commissionPct', 'creditLimit'])): unknown {
+  if (Array.isArray(v)) return v.map((x) => dropNulls(x, keepNullKeys));
+  if (v && typeof v === 'object') return Object.fromEntries(Object.entries(v).filter(([k, x]) => x !== null || keepNullKeys.has(k)).map(([k, x]) => [k, dropNulls(x, keepNullKeys)]));
+  return v;
 }
 
 /** Single entry point for every client operation. Permission checks happen here, server-side. */
@@ -38,7 +45,7 @@ export async function runAction(db: Firestore, caller: Caller | null, action: st
   if (p === 'user' && (!snap.exists || actor.status !== 'active')) throw fail.denied();
   if (Array.isArray(p) && !can(actor, p[0], p[1])) throw fail.denied();
 
-  const parsed = def.schema.safeParse(input ?? {});
+  const parsed = def.schema.safeParse(dropNulls(input ?? {}));
   if (!parsed.success) throw fail.invalid(zodMessage(parsed.error));
   const ctx: Ctx = { db, actor: Object.assign(actor, { token: caller }) as Ctx['actor'], now, today: todayISO(now), requestId };
 

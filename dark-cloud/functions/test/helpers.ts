@@ -33,7 +33,7 @@ export const IDS = {
   stranger: { uid: 'u-x', email: 'stranger@example.test', emailVerified: true, name: 'غريب' },
 };
 
-export const call = (db: Firestore, who: Caller, action: string, input: unknown = {}, requestId = randomUUID()) =>
+export const call = (db: Firestore, who: Caller, action: string, input: unknown = {}, requestId: string = randomUUID()) =>
   runAction(db, who, action, input, requestId) as Promise<any>;
 
 export async function bootstrapOwner(db: Firestore) {

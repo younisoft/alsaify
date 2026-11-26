@@ -1,0 +1,398 @@
+{
+  "source": "/tmp/claude-0/-home-user-alsaify/7d35657d-1518-5094-81b5-59fc9d415fb1/scratchpad/legacy.xlsx",
+  "generatedAt": "2026-11-26T19:26:10.328Z",
+  "settings": {
+    "defaultCommissionPct": 10,
+    "defaultCreditLimit": 500000,
+    "denominations": [
+      200,
+      300,
+      500,
+      1000,
+      3000,
+      8000
+    ],
+    "regions": [
+      "المدينة",
+      "القرية 1",
+      "القرية 2",
+      "القرية 3",
+      "القرية 4",
+      "القرية 5"
+    ],
+    "paymentMethods": [
+      "نقداً",
+      "حوالة",
+      "محفظة إلكترونية"
+    ],
+    "expenseCategories": [
+      "مصروفات المدير العام (توهيب السيفي)",
+      "مصروفات الفني عزام",
+      "مصروفات الفني دهمان",
+      "مصروفات الفني محمد أحمد",
+      "مصروفات صيانة",
+      "رواتب",
+      "كهرباء ووقود",
+      "إنترنت وباقات",
+      "مواصلات",
+      "إيجار",
+      "اتصالات",
+      "نثريات",
+      "أخرى"
+    ],
+    "currencies": [
+      "ريال يمني",
+      "ريال سعودي",
+      "دولار"
+    ]
+  },
+  "distributors": [
+    {
+      "legacyCode": "D001",
+      "name": "أبو أحمد (مثال)",
+      "region": "القرية 1",
+      "phone": "770000001",
+      "commissionPct": null,
+      "creditLimit": 100000,
+      "openingBalance": 0,
+      "status": "active",
+      "row": 5
+    },
+    {
+      "legacyCode": "D002",
+      "name": "محمد صالح (مثال)",
+      "region": "القرية 2",
+      "phone": "771000002",
+      "commissionPct": null,
+      "creditLimit": null,
+      "openingBalance": 25000,
+      "status": "active",
+      "row": 6
+    },
+    {
+      "legacyCode": "D003",
+      "name": "علي ناصر (مثال)",
+      "region": "المدينة",
+      "phone": "733000003",
+      "commissionPct": 8,
+      "creditLimit": null,
+      "openingBalance": 0,
+      "status": "active",
+      "row": 7
+    }
+  ],
+  "batches": [
+    {
+      "legacyKey": "1|D001|منتهية|2026-11-05",
+      "legacyBatchNo": 1,
+      "legacyDistributor": "D001",
+      "deliveryDate": "2026-10-20",
+      "status": "finalized",
+      "settlementDate": "2026-11-05",
+      "commissionPct": 10,
+      "grossMinor": 2000000,
+      "commissionMinor": 200000,
+      "netMinor": 1800000,
+      "rows": [
+        5
+      ]
+    },
+    {
+      "legacyKey": "1|D001|منتهية|2026-11-10",
+      "legacyBatchNo": 1,
+      "legacyDistributor": "D001",
+      "deliveryDate": "2026-10-20",
+      "status": "finalized",
+      "settlementDate": "2026-11-10",
+      "commissionPct": 10,
+      "grossMinor": 3000000,
+      "commissionMinor": 300000,
+      "netMinor": 2700000,
+      "rows": [
+        6
+      ]
+    },
+    {
+      "legacyKey": "1|D001|مفتوحة|",
+      "legacyBatchNo": 1,
+      "legacyDistributor": "D001",
+      "deliveryDate": "2026-10-20",
+      "status": "open",
+      "settlementDate": null,
+      "commissionPct": 10,
+      "grossMinor": 5000000,
+      "commissionMinor": 500000,
+      "netMinor": 4500000,
+      "rows": [
+        7
+      ]
+    },
+    {
+      "legacyKey": "2|D002|منتهية|2026-11-12",
+      "legacyBatchNo": 2,
+      "legacyDistributor": "D002",
+      "deliveryDate": "2026-11-01",
+      "status": "finalized",
+      "settlementDate": "2026-11-12",
+      "commissionPct": 10,
+      "grossMinor": 3000000,
+      "commissionMinor": 300000,
+      "netMinor": 2700000,
+      "rows": [
+        8
+      ]
+    },
+    {
+      "legacyKey": "2|D002|مفتوحة|",
+      "legacyBatchNo": 2,
+      "legacyDistributor": "D002",
+      "deliveryDate": "2026-11-01",
+      "status": "open",
+      "settlementDate": null,
+      "commissionPct": 10,
+      "grossMinor": 7000000,
+      "commissionMinor": 700000,
+      "netMinor": 6300000,
+      "rows": [
+        9,
+        10
+      ]
+    },
+    {
+      "legacyKey": "3|D003|مفتوحة|",
+      "legacyBatchNo": 3,
+      "legacyDistributor": "D003",
+      "deliveryDate": "2026-11-15",
+      "status": "open",
+      "settlementDate": null,
+      "commissionPct": 8,
+      "grossMinor": 8000000,
+      "commissionMinor": 640000,
+      "netMinor": 7360000,
+      "rows": [
+        11,
+        12
+      ]
+    },
+    {
+      "legacyKey": "4|D001|مفتوحة|",
+      "legacyBatchNo": 4,
+      "legacyDistributor": "D001",
+      "deliveryDate": "2026-11-18",
+      "status": "open",
+      "settlementDate": null,
+      "commissionPct": 10,
+      "grossMinor": 8000000,
+      "commissionMinor": 800000,
+      "netMinor": 7200000,
+      "rows": [
+        13,
+        14
+      ]
+    }
+  ],
+  "payments": [
+    {
+      "row": 5,
+      "voucher": "S-0001",
+      "date": "2026-11-10",
+      "code": "D001",
+      "amount": 30000,
+      "method": "نقداً"
+    },
+    {
+      "row": 6,
+      "voucher": "S-0002",
+      "date": "2026-11-13",
+      "code": "D002",
+      "amount": 20000,
+      "method": "حوالة"
+    }
+  ],
+  "expenses": [
+    {
+      "row": 5,
+      "date": "2026-10-20",
+      "currency": "ريال يمني",
+      "amount": 60000,
+      "rate": null,
+      "baseMinor": 6000000,
+      "category": "مصروفات الفني عزام",
+      "description": "مستحقات ومهام ميدانية — بيانات تجريبية"
+    },
+    {
+      "row": 6,
+      "date": "2026-10-25",
+      "currency": "ريال يمني",
+      "amount": 50000,
+      "rate": null,
+      "baseMinor": 5000000,
+      "category": "مصروفات المدير العام (توهيب السيفي)",
+      "description": "وقود وتنقلات إدارة الشبكة — بيانات تجريبية"
+    },
+    {
+      "row": 7,
+      "date": "2026-11-02",
+      "currency": "ريال يمني",
+      "amount": 60000,
+      "rate": null,
+      "baseMinor": 6000000,
+      "category": "مصروفات الفني دهمان",
+      "description": "مستحقات ومتابعة الأبراج — بيانات تجريبية"
+    },
+    {
+      "row": 8,
+      "date": "2026-11-05",
+      "currency": "ريال يمني",
+      "amount": 25000,
+      "rate": null,
+      "baseMinor": 2500000,
+      "category": "مصروفات الفني محمد أحمد",
+      "description": "بترول مولد وصيانة نقطة البث — بيانات تجريبية"
+    },
+    {
+      "row": 9,
+      "date": "2026-11-08",
+      "currency": "ريال يمني",
+      "amount": 15000,
+      "rate": null,
+      "baseMinor": 1500000,
+      "category": "مصروفات صيانة",
+      "description": "صيانة برج القرية 1 — بيانات تجريبية"
+    },
+    {
+      "row": 10,
+      "date": "2026-11-12",
+      "currency": "ريال سعودي",
+      "amount": 40,
+      "rate": 500,
+      "baseMinor": 2000000,
+      "category": "مواصلات",
+      "description": "تنقل للقرى — بيانات تجريبية"
+    }
+  ],
+  "purchases": [
+    {
+      "row": 5,
+      "date": "2026-11-03",
+      "currency": "دولار",
+      "amount": 50,
+      "rate": 2000,
+      "baseMinor": 10000000,
+      "item": "باقة ستارلينك الشهرية",
+      "classification": "operational"
+    },
+    {
+      "row": 6,
+      "date": "2026-11-06",
+      "currency": "ريال سعودي",
+      "amount": 800,
+      "rate": 500,
+      "baseMinor": 40000000,
+      "item": "راوتر وأجهزة بث",
+      "classification": "capital"
+    },
+    {
+      "row": 7,
+      "date": "2026-11-14",
+      "currency": "ريال يمني",
+      "amount": 30000,
+      "rate": null,
+      "baseMinor": 3000000,
+      "item": "كيبل وموصلات",
+      "classification": "operational"
+    }
+  ],
+  "reconciliation": [
+    {
+      "code": "D001",
+      "name": "أبو أحمد (مثال)",
+      "opening": 0,
+      "finalizedNet": 4500000,
+      "paid": 3000000,
+      "balance": 1500000,
+      "custodyGross": 13000000,
+      "exposureNet": 13200000
+    },
+    {
+      "code": "D002",
+      "name": "محمد صالح (مثال)",
+      "opening": 2500000,
+      "finalizedNet": 2700000,
+      "paid": 2000000,
+      "balance": 3200000,
+      "custodyGross": 7000000,
+      "exposureNet": 9500000
+    },
+    {
+      "code": "D003",
+      "name": "علي ناصر (مثال)",
+      "opening": 0,
+      "finalizedNet": 0,
+      "paid": 0,
+      "balance": 0,
+      "custodyGross": 8000000,
+      "exposureNet": 7360000
+    }
+  ],
+  "issues": [
+    {
+      "level": "decision",
+      "sheet": "الإعدادات",
+      "message": "العمولة في Excel مخزنة ككسر (0.1) وتُحوَّل إلى نسبة مئوية (10%) في النظام الجديد."
+    },
+    {
+      "level": "decision",
+      "sheet": "الإعدادات",
+      "message": "أسماء المناطق (المدينة، القرية 1، القرية 2، القرية 3، القرية 4، القرية 5) تبدو أسماءً مؤقتة — يجب اعتماد الأسماء الحقيقية قبل الترحيل."
+    },
+    {
+      "level": "warning",
+      "sheet": "الموزعون",
+      "row": 5,
+      "message": "الموزع D001 «أبو أحمد (مثال)» يبدو بيانات تجريبية — لا يُرحَّل للإنتاج دون تأكيد."
+    },
+    {
+      "level": "warning",
+      "sheet": "الموزعون",
+      "row": 6,
+      "message": "الموزع D002 «محمد صالح (مثال)» يبدو بيانات تجريبية — لا يُرحَّل للإنتاج دون تأكيد."
+    },
+    {
+      "level": "warning",
+      "sheet": "الموزعون",
+      "row": 7,
+      "message": "الموزع D003 «علي ناصر (مثال)» يبدو بيانات تجريبية — لا يُرحَّل للإنتاج دون تأكيد."
+    },
+    {
+      "level": "decision",
+      "sheet": "تسليم الكروت",
+      "message": "الدفعة 1 للموزع D001 فيها أسطر بحالات/تواريخ انتهاء مختلفة — ستُقسَّم إلى 3 دفعات في النظام الجديد (الاعتماد يتم على مستوى الدفعة)."
+    },
+    {
+      "level": "decision",
+      "sheet": "تسليم الكروت",
+      "message": "الدفعة 2 للموزع D002 فيها أسطر بحالات/تواريخ انتهاء مختلفة — ستُقسَّم إلى 2 دفعات في النظام الجديد (الاعتماد يتم على مستوى الدفعة)."
+    },
+    {
+      "level": "decision",
+      "sheet": "سداد الموزعين",
+      "message": "سندات Excel غير مخصصة لدفعات محددة. الاقتراح: ترحيلها بتخصيص FIFO (الأقدم أولاً) أو تركها غير مخصصة — يتطلب قراراً."
+    },
+    {
+      "level": "decision",
+      "sheet": "سداد الموزعين",
+      "message": "لا يوجد حساب نقدي في Excel لكل سند — يجب تحديد الصندوق المستلِم (مثلاً «الصندوق الرئيسي») لكل السندات المرحّلة."
+    },
+    {
+      "level": "decision",
+      "sheet": "المصروفات اليومية",
+      "message": "الأنواع (مصروفات الفني عزام، مصروفات المدير العام (توهيب السيفي)، مصروفات الفني دهمان، مصروفات الفني محمد أحمد) تخلط بين مصروف تشغيلي وعهدة/سلفة ومسحوبات المالك. حدد لكل نوع: مصروف تشغيلي، أو مسحوبات مالك (سند نقدي)، أو عهدة."
+    },
+    {
+      "level": "decision",
+      "sheet": "مشتريات الشبكة",
+      "message": "المشتريات الرأسمالية ستُنشئ أصولاً ثابتة. العمر الإنتاجي والقيمة المتبقية غير موجودين في Excel ولن تُفترض — بلا إهلاك حتى تُحدد."
+    }
+  ]
+}
