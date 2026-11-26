@@ -6,6 +6,15 @@ import { registerServiceWorker } from './lib/pwa';
 
 registerServiceWorker();
 
+// After a new deployment, an already-open old version may request a chunk that no longer exists.
+// Reload once to pick up the new version instead of showing a broken screen.
+addEventListener('vite:preloadError', (e) => {
+  try { if (sessionStorage.getItem('dc-chunk-reload')) return; sessionStorage.setItem('dc-chunk-reload', '1'); } catch { /* ignore */ }
+  e.preventDefault();
+  location.reload();
+});
+addEventListener('load', () => setTimeout(() => { try { sessionStorage.removeItem('dc-chunk-reload'); } catch { /* ignore */ } }, 10000));
+
 class Boundary extends Component<{ children: ReactNode }, { err: Error | null }> {
   state = { err: null as Error | null };
   static getDerivedStateFromError(err: Error) { return { err }; }

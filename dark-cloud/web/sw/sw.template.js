@@ -43,7 +43,11 @@ self.addEventListener('fetch', (e) => {
     const hit = await caches.match(req);
     if (hit) return hit;
     const res = await fetch(req);
-    if (res.ok && (res.type === 'basic' || res.type === 'cors') && /\.(js|css|png|svg|webp|woff2?|ttf|webmanifest)$|fonts\.googleapis\.com/.test(url.href))
+    // Hosts with an SPA fallback (Cloudflare Pages, Firebase Hosting) answer a missing file with index.html + 200.
+    // Only cache when the content type really matches the file, so an HTML fallback is never stored as JS/CSS.
+    const ct = res.headers.get('content-type') || '';
+    const typeOk = /\.js$/.test(url.pathname) ? /javascript/.test(ct) : /\.css$/.test(url.pathname) ? /text\/css/.test(ct) : !/text\/html/.test(ct);
+    if (res.ok && typeOk && (res.type === 'basic' || res.type === 'cors') && /\.(js|css|png|svg|webp|woff2?|ttf|webmanifest)$|fonts\.googleapis\.com/.test(url.href))
       (await caches.open(RUNTIME)).put(req, res.clone());
     return res;
   })());

@@ -7,6 +7,7 @@ Arabic-first (RTL), base currency **YER**, timezone **Asia/Aden**, dates shown *
 
 | Document | Contents |
 |---|---|
+| [docs/CLOUDFLARE.md](docs/CLOUDFLARE.md) | Hosting the PWA on Cloudflare Pages with the Firebase backend: dependencies, settings, auth domains, plan |
 | [docs/ANDROID.md](docs/ANDROID.md) | Android installation (PWA), updates, offline behavior, staging deployment requirements |
 | [docs/STATUS.md](docs/STATUS.md) | **Read first.** Per-module implementation status, test results, open policy decisions, what remains |
 | [docs/ACCOUNTING.md](docs/ACCOUNTING.md) | Accounting engine: definitions, formulas, double-entry postings, policies, Excel→new mapping |
