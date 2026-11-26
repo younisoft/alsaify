@@ -1,0 +1,32 @@
+{
+  "name": "dark-cloud",
+  "private": true,
+  "workspaces": [
+    "shared",
+    "functions",
+    "web"
+  ],
+  "scripts": {
+    "build": "npm run build -w functions && npm run build -w web",
+    "test:unit": "npm run test -w shared",
+    "test:emulator": "firebase emulators:exec --only firestore,auth --project demo-darkcloud \"npm run test -w functions\"",
+    "test": "npm run test:unit && npm run test:emulator",
+    "typecheck": "tsc -p shared && tsc -p functions && tsc -p web",
+    "dev": "firebase emulators:exec --only auth,firestore,functions,storage --project demo-darkcloud --ui \"npm run dev -w web\""
+  },
+  "devDependencies": {
+    "@firebase/rules-unit-testing": "^6.0.0",
+    "@tailwindcss/vite": "^4.3.5",
+    "@types/node": "^26.6.11",
+    "@types/react": "^19.3.3",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.3.0",
+    "esbuild": "^0.28.2",
+    "firebase-tools": "^15.37.0",
+    "playwright": "^1.65.1",
+    "tailwindcss": "^4.3.5",
+    "typescript": "^7.0.2",
+    "vite": "^8.4.0",
+    "vitest": "^5.1.2"
+  }
+}

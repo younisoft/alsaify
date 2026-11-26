@@ -1,0 +1,62 @@
+rules_version = '2';
+// DARK-CLOUD — clients may only READ, and only what their permissions allow.
+// Every write goes through the server API (Cloud Functions, Admin SDK), which enforces
+// permissions, validation, double-entry posting, idempotency and audit logging.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function userDoc() { return get(/databases/$(database)/documents/users/$(request.auth.uid)); }
+    function hasUser() { return request.auth != null && exists(/databases/$(database)/documents/users/$(request.auth.uid)); }
+    function me() { return userDoc().data; }
+    function active() { return hasUser() && me().status == 'active'; }
+    function isOwner() { return active() && me().kind == 'owner'; }
+    function isMember() { return active() && me().kind == 'member'; }
+    function staff() { return isOwner() || isMember(); }
+    function can(m, a) { return isOwner() || (isMember() && m in me().permissions && a in me().permissions[m]); }
+    function portalFor(distId) {
+      return active() && me().kind == 'portal' && me().portalDistributorId == distId
+        && get(/databases/$(database)/documents/settings/main).data.system.portalEnabled == true;
+    }
+
+    match /{document=**} { allow read, write: if false; }
+
+    match /users/{uid} { allow get: if request.auth != null && request.auth.uid == uid; allow read: if isOwner(); }
+    match /invitations/{id} { allow read: if isOwner(); }
+    match /settings/{id} { allow get: if active(); }
+    match /exchange_rates/{id} { allow read: if staff(); }
+    match /accounting_periods/{id} { allow read: if staff(); }
+
+    match /distributors/{id} { allow read: if can('distributors', 'view') || portalFor(id); }
+    match /distributor_ledger/{id} { allow read: if can('distributors', 'view') || portalFor(resource.data.distributorId); }
+    match /distributor_charges/{id} { allow read: if can('distributors', 'view') || portalFor(resource.data.distributorId); }
+    match /batches/{id} { allow read: if can('batches', 'view') || portalFor(resource.data.distributorId); }
+    match /payments/{id} { allow read: if can('payments', 'view') || portalFor(resource.data.distributorId); }
+    match /payment_allocations/{id} { allow read: if can('payments', 'view') || portalFor(resource.data.distributorId); }
+    match /collection_followups/{id} { allow read: if can('collection', 'view'); }
+
+    match /expenses/{id} { allow read: if can('expenses', 'view'); }
+    match /suppliers/{id} { allow read: if can('suppliers', 'view'); }
+    match /supplier_ledger/{id} { allow read: if can('suppliers', 'view'); }
+    match /supplier_payments/{id} { allow read: if can('suppliers', 'view'); }
+    match /purchases/{id} { allow read: if can('purchases', 'view'); }
+    match /inventory_items/{id} { allow read: if can('inventory', 'view'); }
+    match /warehouses/{id} { allow read: if can('inventory', 'view') || can('purchases', 'view'); }
+    match /inventory_movements/{id} { allow read: if can('inventory', 'view'); }
+    match /assets/{id} { allow read: if can('assets', 'view'); }
+    match /depreciation_entries/{id} { allow read: if can('assets', 'view'); }
+    match /cash_accounts/{id} { allow read: if can('cash', 'view') || can('payments', 'create') || can('expenses', 'create') || can('purchases', 'create') || can('suppliers', 'create'); }
+    match /cash_transactions/{id} { allow read: if can('cash', 'view'); }
+    match /cash_transfers/{id} { allow read: if can('cash', 'view'); }
+    match /cash_vouchers/{id} { allow read: if can('cash', 'view'); }
+    match /cash_reconciliations/{id} { allow read: if can('cash', 'view'); }
+    match /journal_entries/{id} { allow read: if can('reports', 'view'); }
+
+    match /approvals/{id} { allow read: if staff() && (can(resource.data.module, 'approve') || resource.data.requestedBy == request.auth.uid); }
+    match /tasks/{id} { allow read: if can('tasks', 'view') || (staff() && (resource.data.assigneeUid == request.auth.uid || resource.data.createdBy == request.auth.uid)); }
+    match /task_comments/{id} { allow read: if can('tasks', 'view'); }
+    match /documents/{id} { allow read: if can(resource.data.module, 'view') || can('archive', 'view'); }
+    match /notifications/{id} { allow read: if hasUser() && resource.data.uid == request.auth.uid; }
+    match /audit_logs/{id} { allow read: if can('audit', 'view'); }
+    match /security_events/{id} { allow read: if isOwner(); }
+    match /backups/{id} { allow read: if isOwner(); }
+  }
+}
