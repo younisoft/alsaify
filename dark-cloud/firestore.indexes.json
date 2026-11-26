@@ -1,0 +1,21 @@
+{
+  "indexes": [
+    { "collectionGroup": "batches", "queryScope": "COLLECTION", "fields": [{ "fieldPath": "distributorId", "order": "ASCENDING" }, { "fieldPath": "allocOpen", "order": "ASCENDING" }] },
+    { "collectionGroup": "batches", "queryScope": "COLLECTION", "fields": [{ "fieldPath": "distributorId", "order": "ASCENDING" }, { "fieldPath": "status", "order": "ASCENDING" }] },
+    { "collectionGroup": "batches", "queryScope": "COLLECTION", "fields": [{ "fieldPath": "distributorId", "order": "ASCENDING" }, { "fieldPath": "batchNo", "order": "DESCENDING" }] },
+    { "collectionGroup": "distributor_charges", "queryScope": "COLLECTION", "fields": [{ "fieldPath": "distributorId", "order": "ASCENDING" }, { "fieldPath": "allocOpen", "order": "ASCENDING" }] },
+    { "collectionGroup": "payment_allocations", "queryScope": "COLLECTION", "fields": [{ "fieldPath": "paymentId", "order": "ASCENDING" }, { "fieldPath": "status", "order": "ASCENDING" }] },
+    { "collectionGroup": "payment_allocations", "queryScope": "COLLECTION", "fields": [{ "fieldPath": "targetId", "order": "ASCENDING" }, { "fieldPath": "status", "order": "ASCENDING" }] },
+    { "collectionGroup": "exchange_rates", "queryScope": "COLLECTION", "fields": [{ "fieldPath": "currency", "order": "ASCENDING" }, { "fieldPath": "date", "order": "DESCENDING" }] },
+    { "collectionGroup": "payments", "queryScope": "COLLECTION", "fields": [{ "fieldPath": "distributorId", "order": "ASCENDING" }, { "fieldPath": "date", "order": "DESCENDING" }] },
+    { "collectionGroup": "distributor_ledger", "queryScope": "COLLECTION", "fields": [{ "fieldPath": "distributorId", "order": "ASCENDING" }, { "fieldPath": "date", "order": "ASCENDING" }] },
+    { "collectionGroup": "cash_transactions", "queryScope": "COLLECTION", "fields": [{ "fieldPath": "accountId", "order": "ASCENDING" }, { "fieldPath": "date", "order": "DESCENDING" }] },
+    { "collectionGroup": "notifications", "queryScope": "COLLECTION", "fields": [{ "fieldPath": "uid", "order": "ASCENDING" }, { "fieldPath": "at", "order": "DESCENDING" }] },
+    { "collectionGroup": "tasks", "queryScope": "COLLECTION", "fields": [{ "fieldPath": "assigneeUid", "order": "ASCENDING" }, { "fieldPath": "dueDate", "order": "ASCENDING" }] },
+    { "collectionGroup": "approvals", "queryScope": "COLLECTION", "fields": [{ "fieldPath": "status", "order": "ASCENDING" }, { "fieldPath": "requestedAt", "order": "DESCENDING" }] },
+    { "collectionGroup": "documents", "queryScope": "COLLECTION", "fields": [{ "fieldPath": "module", "order": "ASCENDING" }, { "fieldPath": "recordId", "order": "ASCENDING" }] },
+    { "collectionGroup": "supplier_ledger", "queryScope": "COLLECTION", "fields": [{ "fieldPath": "supplierId", "order": "ASCENDING" }, { "fieldPath": "date", "order": "ASCENDING" }] },
+    { "collectionGroup": "inventory_movements", "queryScope": "COLLECTION", "fields": [{ "fieldPath": "itemId", "order": "ASCENDING" }, { "fieldPath": "date", "order": "DESCENDING" }] }
+  ],
+  "fieldOverrides": []
+}

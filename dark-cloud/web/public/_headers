@@ -1,0 +1,24 @@
+# Cloudflare Pages response headers (same policy as firebase.json "hosting.headers")
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=31536000
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+
+/sw.js
+  Cache-Control: no-cache, no-store, must-revalidate
+  Service-Worker-Allowed: /
+
+/index.html
+  Cache-Control: no-cache
+
+/manifest.webmanifest
+  Cache-Control: no-cache
+  Content-Type: application/manifest+json
+
+/version.json
+  Cache-Control: no-cache, no-store
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable

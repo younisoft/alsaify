@@ -1,0 +1,11 @@
+node_modules
+/functions/lib
+/web/dist
+*.log
+.env
+.env.staging
+.env.local
+.env.production
+!.env.example
+test-results
+scripts/.migrate.mjs
