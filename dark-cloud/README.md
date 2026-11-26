@@ -7,6 +7,7 @@ Arabic-first (RTL), base currency **YER**, timezone **Asia/Aden**, dates shown *
 
 | Document | Contents |
 |---|---|
+| [docs/ANDROID.md](docs/ANDROID.md) | Android installation (PWA), updates, offline behavior, staging deployment requirements |
 | [docs/STATUS.md](docs/STATUS.md) | **Read first.** Per-module implementation status, test results, open policy decisions, what remains |
 | [docs/ACCOUNTING.md](docs/ACCOUNTING.md) | Accounting engine: definitions, formulas, double-entry postings, policies, Excel→new mapping |
 | [docs/PERMISSIONS.md](docs/PERMISSIONS.md) | Roles, permission matrix, approvals, separation of duties, security model |

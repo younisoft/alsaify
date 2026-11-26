@@ -16,7 +16,9 @@
 }
 
 @layer base {
-  html { -webkit-text-size-adjust: 100%; }
+  html { -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; }
+  body { overscroll-behavior-y: none; }
+  @media (display-mode: standalone) { body { user-select: none; } input, textarea, [contenteditable], .num, td { user-select: text; } }
   body { @apply bg-page text-navy font-sans antialiased; font-size: 14px; }
   :focus-visible { outline: 2px solid var(--color-brand); outline-offset: 2px; }
   .num { font-variant-numeric: tabular-nums; direction: ltr; unicode-bidi: isolate; display: inline-block; }

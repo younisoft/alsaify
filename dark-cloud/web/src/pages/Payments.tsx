@@ -141,7 +141,7 @@ export function PaymentDetail() {
         <Card title="التخصيصات">
           {!allocs.data.length ? <p className="text-sm text-muted">غير مخصص — يبقى رصيداً دائناً للموزع.</p> : (
             <ul className="divide-y divide-line text-sm">{allocs.data.map((a) => (
-              <li key={a.id} className="flex justify-between py-2"><span>{a.targetType === 'batch' ? <Link className="text-brand" to={`/batches/${a.targetId}`}>دفعة</Link> : 'رصيد مدين'} · {formatDate(a.date)}</span>
+              <li key={a.id} className="flex justify-between py-2"><span>{a.targetType === 'batch' ? <Link className="inline-flex min-h-10 items-center text-brand" to={`/batches/${a.targetId}`}>دفعة</Link> : 'رصيد مدين'} · {formatDate(a.date)}</span>
                 <span>{a.status === 'void' ? <Badge tone="neutral">أُلغي</Badge> : <Money v={a.amountMinor} />}</span></li>))}</ul>
           )}
         </Card>
@@ -179,7 +179,7 @@ export function CollectionPage() {
       <PageHeader title="متابعة التحصيل" subtitle="الموزعون الذين عليهم أرصدة مستحقة، مع مواعيد المتابعة والوعود بالسداد" crumbs={[{ label: 'الرئيسية', to: '/' }, { label: 'متابعة التحصيل' }]} />
       <DataView rows={due} loading={dists.loading} error={dists.error || follows.error} exportName="collection" title="تقرير متابعة التحصيل" search={(d) => `${d.code} ${d.name}`}
         emptyTitle="لا توجد أرصدة مستحقة" columns={[
-          { key: 'name', label: 'الموزع', mobile: 'title', render: (d) => <Link className="font-semibold text-brand" to={`/distributors/${d.id}`}>{d.name}</Link>, value: (d) => d.name },
+          { key: 'name', label: 'الموزع', mobile: 'title', render: (d) => <Link className="inline-flex min-h-10 items-center font-semibold text-brand" to={`/distributors/${d.id}`}>{d.name}</Link>, value: (d) => d.name },
           { key: 'ledger', label: 'الرصيد المستحق', align: 'end', mobile: 'amount', value: (d) => major(d.bal.ledger), render: (d) => <Money v={d.bal.ledger} /> },
           { key: 'last', label: 'آخر سداد', mobile: 'sub', value: (d) => formatDate(d.lastPaymentDate) },
           { key: 'next', label: 'المتابعة القادمة', value: (d) => formatDate(lastFollow(d.id)?.nextFollowUpDate), render: (d) => { const f = lastFollow(d.id); return f ? <span className={f.nextFollowUpDate <= today() ? 'font-bold text-warn' : ''}>{formatDate(f.nextFollowUpDate)}</span> : '—'; } },

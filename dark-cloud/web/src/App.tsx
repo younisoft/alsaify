@@ -4,7 +4,7 @@ import type { Module } from '@dc/shared';
 import { AuthProvider, useAuth } from './lib/auth';
 import { ToastProvider, Loading, Empty } from './components/ui';
 import { Shell } from './layout/Shell';
-import { LoginPage, UnauthorizedPage, PortalPage } from './pages/Auth';
+import { LoginPage, UnauthorizedPage, PortalPage, OfflinePage } from './pages/Auth';
 
 const L = <T extends Record<string, any>>(f: () => Promise<T>, k: keyof T) => lazy(() => f().then((m) => ({ default: m[k] })));
 const Dashboard = L(() => import('./pages/Dashboard'), 'Dashboard');
@@ -45,6 +45,7 @@ function Gate() {
   const { status, profile, can } = useAuth();
   if (status === 'loading') return <div className="grid min-h-dvh place-items-center"><Loading label="جارٍ التحقق من الحساب…" /></div>;
   if (status === 'signed-out') return <LoginPage />;
+  if (status === 'offline') return <OfflinePage />;
   if (status === 'unauthorized' || !profile) return <UnauthorizedPage />;
   if (profile.kind === 'portal') return <PortalPage />;
   const home = can('dashboard', 'view') ? <Guard module="dashboard"><Dashboard /></Guard> : <Navigate to="/tasks" replace />;

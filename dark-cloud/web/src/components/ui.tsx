@@ -19,7 +19,7 @@ export function Button({ variant = 'secondary', loading, icon, children, classNa
   return (
     <button {...p} disabled={p.disabled || loading}
       className={cx('inline-flex items-center justify-center gap-1.5 rounded-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap',
-        size === 'sm' ? 'h-8 px-2.5 text-xs' : 'h-10 px-4 text-sm', btnStyles[variant], className)}>
+        size === 'sm' ? 'h-8 px-2.5 text-xs pointer-coarse:h-10 pointer-coarse:px-3' : 'h-10 px-4 text-sm pointer-coarse:h-11', btnStyles[variant], className)}>
       {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : icon}
       {children}
     </button>
@@ -154,7 +154,7 @@ export function Field({ label, hint, error, required, children, className }: { l
     </div>
   );
 }
-const inputCls = 'h-10 w-full rounded-lg border border-line bg-white px-3 text-sm text-navy placeholder:text-slate-400 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/15 disabled:bg-slate-50';
+const inputCls = 'h-10 pointer-coarse:h-11 pointer-coarse:text-base w-full rounded-lg border border-line bg-white px-3 text-sm text-navy placeholder:text-slate-400 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/15 disabled:bg-slate-50';
 export function Input(p: InputHTMLAttributes<HTMLInputElement>) { return <input {...p} className={cx(inputCls, p.type === 'number' && 'num text-right', p.className)} />; }
 export function Select({ options, placeholder, ...p }: SelectHTMLAttributes<HTMLSelectElement> & { options: { value: string; label: string }[]; placeholder?: string }) {
   return <select {...p} className={cx(inputCls, 'pr-3', p.className)}>{placeholder !== undefined && <option value="">{placeholder}</option>}{options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}</select>;
@@ -195,15 +195,19 @@ export function FormModal({ open, onClose, title, onSubmit, submitLabel = 'حف�
 }) {
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
+  const [online, setOnline] = useState(navigator.onLine);
+  useEffect(() => { const a = () => setOnline(true), b = () => setOnline(false); addEventListener('online', a); addEventListener('offline', b); return () => { removeEventListener('online', a); removeEventListener('offline', b); }; }, []);
   useEffect(() => { if (open) setErr(null); }, [open]);
   const submit = async () => {
+    if (!navigator.onLine) { setErr('لا يوجد اتصال بالإنترنت. لا يمكن الحفظ الآن — لن يُعتبر أي شيء محفوظاً حتى يؤكده الخادم.'); return; }
     setBusy(true); setErr(null);
     try { await onSubmit(); onClose(); } catch (e: any) { setErr(e.message || 'تعذر الحفظ'); } finally { setBusy(false); }
   };
   return (
     <Modal open={open} onClose={() => !busy && onClose()} title={title} wide={wide}
-      footer={<><Button onClick={onClose} disabled={busy}>إلغاء</Button><Button variant={danger ? 'danger' : 'primary'} loading={busy} onClick={submit}>{submitLabel}</Button></>}>
+      footer={<><Button onClick={onClose} disabled={busy}>إلغاء</Button><Button variant={danger ? 'danger' : 'primary'} loading={busy} disabled={!online} onClick={submit}>{busy ? 'جارٍ الحفظ على الخادم…' : submitLabel}</Button></>}>
       <form onSubmit={(e) => { e.preventDefault(); void submit(); }} className="space-y-3">
+        {!online && <Note tone="warn">غير متصل — الحفظ معطّل حتى عودة الاتصال.</Note>}
         {err && <ErrorBox message={err} />}
         {children}
         <button type="submit" hidden />
@@ -225,7 +229,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   return (
     <ToastCtx.Provider value={push}>
       {children}
-      <div aria-live="polite" role="status" className="no-print pointer-events-none fixed bottom-20 left-4 z-[60] flex w-[min(92vw,380px)] flex-col gap-2 lg:bottom-5">
+      <div aria-live="polite" role="status" className="no-print pointer-events-none fixed bottom-[calc(5rem+env(safe-area-inset-bottom))] left-4 z-[60] flex w-[min(92vw,380px)] flex-col gap-2 lg:bottom-5">
         {items.map((t) => (
           <div key={t.id} className={cx('pointer-events-auto flex items-start gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-white shadow-lg', t.tone === 'ok' ? 'bg-navy' : t.tone === 'warn' ? 'bg-warn' : 'bg-bad')}>
             {t.tone === 'ok' ? <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-300" /> : <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />}{t.text}
@@ -319,7 +323,7 @@ export function DataView<T extends { id: string }>({ rows, columns, loading, err
               </li>
             ))}
           </ul>
-          {footer && <div className="border-t-2 border-line bg-slate-50 md:hidden"><table className="w-full text-sm"><tbody>{footer}</tbody></table></div>}
+          {footer && <div className="overflow-x-auto border-t-2 border-line bg-slate-50 md:hidden"><table className="w-full text-sm"><tbody>{footer}</tbody></table></div>}
           {filtered.length > shown.length && (
             <div className="no-print border-t border-line p-3 text-center">
               <Button size="sm" onClick={() => setLimit((l) => l + pageSize)}>عرض المزيد ({filtered.length - shown.length} متبقٍ)</Button>
@@ -345,4 +349,16 @@ export function useReasonPrompt() {
     </Modal>
   );
   return { ask, el };
+}
+
+/** Touch-friendly filter chips (≥40px tap height on touch screens). */
+export function Chips<T extends string>({ value, onChange, options, label }: { value: T; onChange: (v: T) => void; options: [T, string][]; label: string }) {
+  return (
+    <div role="radiogroup" aria-label={label} className="no-print -mx-1 mb-2 flex gap-1.5 overflow-x-auto px-1 pb-1">
+      {options.map(([v, l]) => (
+        <button key={v} role="radio" aria-checked={value === v} onClick={() => onChange(v)}
+          className={cx('shrink-0 rounded-full px-3.5 py-1.5 text-xs font-semibold pointer-coarse:min-h-10 pointer-coarse:px-4', value === v ? 'bg-navy text-white' : 'bg-white text-muted ring-1 ring-line')}>{l}</button>
+      ))}
+    </div>
+  );
 }

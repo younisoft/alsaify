@@ -90,11 +90,11 @@ export function Dashboard() {
           <div className="grid gap-4 lg:grid-cols-3">
             <Card title="أعلى 5 موزعين">
               {x.distribution.top5.length ? <ol className="space-y-2">{x.distribution.top5.map((t: any, i: number) => (
-                <li key={t.id} className="flex items-center justify-between text-sm"><Link to={`/distributors/${t.id}`} className="text-brand"><span className="ml-2 font-bold text-gold">{i + 1}</span>{t.name}</Link><Money v={t.gross} /></li>))}</ol> : <p className="text-sm text-muted">لا بيانات.</p>}
+                <li key={t.id} className="flex items-center justify-between text-sm"><Link to={`/distributors/${t.id}`} className="inline-flex min-h-10 items-center text-brand"><span className="ml-2 font-bold text-gold">{i + 1}</span>{t.name}</Link><Money v={t.gross} /></li>))}</ol> : <p className="text-sm text-muted">لا بيانات.</p>}
             </Card>
             <Card title={<span className="inline-flex items-center gap-1.5"><AlertTriangle className="h-4 w-4 text-bad" />متجاوزو الحد الائتماني</span>}>
               {x.distribution.overLimit.length ? <ul className="space-y-2">{x.distribution.overLimit.map((o: any) => (
-                <li key={o.id} className="flex justify-between text-sm"><Link className="text-brand" to={`/distributors/${o.id}`}>{o.name}</Link><span className="text-bad"><Money v={o.exposure} /> / <Money v={o.limit} /></span></li>))}</ul> : <p className="text-sm text-ok">لا يوجد تجاوز.</p>}
+                <li key={o.id} className="flex justify-between text-sm"><Link className="inline-flex min-h-10 items-center text-brand" to={`/distributors/${o.id}`}>{o.name}</Link><span className="text-bad"><Money v={o.exposure} /> / <Money v={o.limit} /></span></li>))}</ul> : <p className="text-sm text-ok">لا يوجد تجاوز.</p>}
             </Card>
             <Card title="الإدارة">
               <div className="grid grid-cols-2 gap-2 text-center">

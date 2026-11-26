@@ -3,6 +3,7 @@ lib
 dist
 *.log
 .env
+.env.staging
 .env.local
 .env.production
 !.env.example

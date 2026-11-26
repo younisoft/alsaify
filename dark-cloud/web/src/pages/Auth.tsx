@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { signInWithPopup, signInWithCredential, GoogleAuthProvider } from 'firebase/auth';
 import { where, orderBy } from 'firebase/firestore';
-import { LogIn, ShieldAlert, LogOut } from 'lucide-react';
+import { LogIn, ShieldAlert, LogOut, WifiOff } from 'lucide-react';
 import { formatDate } from '@dc/shared';
 import { auth, googleProvider, USE_EMULATORS } from '../lib/firebase';
 import { useAuth } from '../lib/auth';
@@ -89,5 +89,22 @@ export function PortalPage() {
         </>}
       </main>
     </div>
+  );
+}
+
+export function OfflinePage() {
+  const { reason } = useAuth();
+  const online = typeof navigator !== 'undefined' && navigator.onLine;
+  return (
+    <Frame>
+      <div className="text-center" role="status">
+        <WifiOff className="mx-auto h-10 w-10 text-warn" />
+        <h1 className="mt-2 text-lg font-bold">{online ? 'تعذر الوصول إلى الخادم' : 'لا يوجد اتصال بالإنترنت'}</h1>
+        {online && reason && <p className="mt-1 text-xs text-muted">{reason}</p>}
+        <p className="mt-2 text-sm text-muted">لأسباب أمنية لا تُحفظ البيانات المالية على الجهاز، لذلك يحتاج النظام إلى اتصال لعرضها وحفظ أي عملية.</p>
+        <p className="mt-2 text-xs text-muted">سيُعاد الاتصال تلقائياً عند عودة الشبكة.</p>
+        <Button className="mt-5" onClick={() => location.reload()}>إعادة المحاولة</Button>
+      </div>
+    </Frame>
   );
 }

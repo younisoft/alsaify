@@ -7,7 +7,7 @@ import { useAuth } from '../lib/auth';
 import { useCollection, useDoc, useApi } from '../lib/hooks';
 import { api } from '../lib/api';
 import { tsDate, major } from '../lib/format';
-import { Badge, Button, Card, DataView, Field, FormModal, Grid, Input, Kpi, Note, PageHeader, Select, Stat, Textarea, useToast, Loading, ErrorBox, Empty, useReasonPrompt, Tabs, Modal } from '../components/ui';
+import { Badge, Button, Card, DataView, Field, FormModal, Grid, Input, Kpi, Note, PageHeader, Select, Stat, Textarea, useToast, Loading, ErrorBox, Empty, useReasonPrompt, Tabs, Modal, Chips } from '../components/ui';
 import { Money, DocStatus, Documents, History, today, useCashAccounts, useSupplierOptions, CurrencyFields, num } from './common';
 
 // ================================================================== CASH
@@ -347,7 +347,7 @@ export function PurchasesPage() {
         <Kpi label="غير مدفوع للموردين" value={<Money v={appr.reduce((a, p) => a + p.totalBaseMinor - p.paidBaseMinor, 0)} />} tone="warn" />
         <Kpi label="بانتظار الاعتماد" value={r.data.filter((p) => p.status === 'pending').length} tone="navy" />
       </div>
-      <div className="mb-2 flex gap-1.5">{[['', 'الكل'], ['operational', 'تشغيلي'], ['capital', 'رأسمالي']].map(([v, l]) => <button key={v} onClick={() => setCls(v)} className={`rounded-full px-3 py-1 text-xs font-semibold ${cls === v ? 'bg-navy text-white' : 'bg-white text-muted ring-1 ring-line'}`}>{l}</button>)}</div>
+      <Chips label="تصفية حسب التصنيف" value={cls} onChange={setCls} options={[['', 'الكل'], ['operational', 'تشغيلي'], ['capital', 'رأسمالي']] as [string, string][]} />
       <PurchaseTable rows={rows} loading={r.loading} error={r.error} />
       {open && <PurchaseForm onClose={() => setOpen(false)} />}
     </>

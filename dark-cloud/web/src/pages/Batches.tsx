@@ -7,7 +7,7 @@ import { useAuth } from '../lib/auth';
 import { useCollection, useDoc } from '../lib/hooks';
 import { api } from '../lib/api';
 import { tsDate } from '../lib/format';
-import { Button, Card, Field, FormModal, Grid, Input, Kpi, Note, PageHeader, Select, Stat, Textarea, useToast, Loading, ErrorBox, Empty, useReasonPrompt, Badge } from '../components/ui';
+import { Button, Card, Field, FormModal, Grid, Input, Kpi, Note, PageHeader, Select, Stat, Textarea, useToast, Loading, ErrorBox, Empty, useReasonPrompt, Badge, Chips } from '../components/ui';
 import { Money, BatchStatus, SettlementBadge, Documents, History, today, useDistributorOptions } from './common';
 import { BatchTable } from './Distributors';
 
@@ -39,11 +39,7 @@ export function BatchesPage() {
 function BatchTableWithFilter({ rows, loading, error, status, setStatus }: any) {
   return (
     <div className="space-y-2">
-      <div className="flex flex-wrap gap-1.5">
-        {[['', 'الكل'], ['draft', 'جديدة'], ['open', 'مفتوحة'], ['finalized', 'معتمدة'], ['returned', 'مرتجعة'], ['cancelled', 'ملغاة']].map(([v, l]) => (
-          <button key={v} onClick={() => setStatus(v)} className={`rounded-full px-3 py-1 text-xs font-semibold ${status === v ? 'bg-navy text-white' : 'bg-white text-muted ring-1 ring-line'}`}>{l}</button>
-        ))}
-      </div>
+      <Chips label="تصفية حسب الحالة" value={status} onChange={setStatus} options={[['', 'الكل'], ['draft', 'جديدة'], ['open', 'مفتوحة'], ['finalized', 'معتمدة'], ['returned', 'مرتجعة'], ['cancelled', 'ملغاة']] as [string, string][]} />
       <BatchTable rows={rows} loading={loading} error={error} />
     </div>
   );
@@ -168,7 +164,7 @@ export function BatchDetail() {
         <Card title="تخصيص السدادات على هذه الدفعة" className="mt-4">
           {!allocs.data.length ? <p className="text-sm text-muted">لم يُخصص أي سداد بعد.</p> : (
             <ul className="divide-y divide-line text-sm">{allocs.data.map((a) => (
-              <li key={a.id} className="flex justify-between py-2"><Link className="text-brand" to={`/payments/${a.paymentId}`}>{a.receiptNo}</Link><span>{a.status === 'void' ? <Badge tone="bad">ملغى</Badge> : <Money v={a.amountMinor} />}</span></li>))}</ul>
+              <li key={a.id} className="flex justify-between py-2"><Link className="inline-flex min-h-10 items-center text-brand" to={`/payments/${a.paymentId}`}>{a.receiptNo}</Link><span>{a.status === 'void' ? <Badge tone="bad">ملغى</Badge> : <Money v={a.amountMinor} />}</span></li>))}</ul>
           )}
         </Card>
       )}

@@ -19,6 +19,7 @@ Last run: 2026-11-26, all on local emulators. No real project was touched.
 | Backup export / verify / tamper-detect / restore + daily alert scan | `functions/test/backup.test.ts` | **4 / 4 passed** |
 | Browser E2E (desktop 1440px + iPhone 13), real UI → real API → emulators | `web/e2e/e2e.mjs` | **19 / 19 passed, 0 console errors** |
 | Type check (shared, functions, web) and production build | `tsc`, `vite build` | Pass |
+| **Android / PWA audit** (Pixel 7 emulation): Chrome installability API, manifest, service worker, 21 routes × (no horizontal scroll, touch targets), dialogs, offline launch / reconnect, no sensitive caching | `web/e2e/android.mjs` | **54 / 54 passed** (2026-11-26) |
 | Migration dry-run on the audited workbook | `npm run migrate:dryrun` | 0 errors, 3 warnings, 8 decisions; balances match the Excel formulas |
 
 Mandatory accounting acceptance tests, each run through the real server API:
@@ -67,6 +68,8 @@ Bugs found by the tests and fixed:
 | Backup and recovery | ✅⚙ | Export / verify / restore tested on the emulator; Storage upload and scheduler need a real project |
 | Data migration | 🟡 | Dry-run complete and verified; API import runner ⛔ (waits for your decisions) |
 | Mobile UI (bottom nav, drawer, card lists, bottom-sheet dialogs, no horizontal scroll) | 🟢 | |
+| PWA / Android install (manifest, icons, safe service worker, update prompt, offline/sync states) | ✅🟢 | Verified locally; see [ANDROID.md](ANDROID.md) |
+| Staging deployment | ⚙ | `scripts/deploy-staging.sh` ready (guarded). **Not deployed**: no staging project or credentials available |
 | Production deployment | ⚙ | Not deployed: needs your Firebase project on the Blaze plan and credentials |
 
 ## What I need from you

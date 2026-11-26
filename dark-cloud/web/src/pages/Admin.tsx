@@ -9,7 +9,7 @@ import { useAuth } from '../lib/auth';
 import { useCollection } from '../lib/hooks';
 import { api } from '../lib/api';
 import { tsDate } from '../lib/format';
-import { Badge, Button, Card, DataView, Field, FormModal, Grid, Input, Note, PageHeader, Select, Tabs, Textarea, useToast, Modal, Empty, Stat, useReasonPrompt } from '../components/ui';
+import { Badge, Button, Card, DataView, Field, FormModal, Grid, Input, Note, PageHeader, Select, Tabs, Textarea, useToast, Modal, Empty, Stat, useReasonPrompt, Chips } from '../components/ui';
 import { useTeamOptions, today, Documents } from './common';
 
 // ================================================================== TASKS
@@ -24,8 +24,7 @@ export function TasksPage() {
     <>
       <PageHeader title="المهام" subtitle="مهام الفريق الإدارية — لا تُنشئ المهام أي عمليات مالية" crumbs={[{ label: 'الرئيسية', to: '/' }, { label: 'المهام' }]}
         actions={can('tasks', 'create') && <Button variant="primary" icon={<Plus className="h-4 w-4" />} onClick={() => setEdit({})}>مهمة جديدة</Button>} />
-      <div className="mb-2 flex flex-wrap gap-1.5">{[['open', 'المفتوحة'], ['mine', 'المسندة إليّ'], ['review', 'بانتظار المراجعة'], ['done', 'المكتملة'], ['all', 'الكل']].map(([v, l]) => (
-        <button key={v} onClick={() => setFilter(v)} className={`rounded-full px-3 py-1 text-xs font-semibold ${filter === v ? 'bg-navy text-white' : 'bg-white text-muted ring-1 ring-line'}`}>{l}</button>))}</div>
+      <Chips label="تصفية المهام" value={filter} onChange={setFilter} options={[['open', 'المفتوحة'], ['mine', 'المسندة إليّ'], ['review', 'بانتظار المراجعة'], ['done', 'المكتملة'], ['all', 'الكل']] as [string, string][]} />
       <DataView rows={shown} loading={all.loading && mine.loading} error={all.error || mine.error} onRowClick={setView} exportName="tasks" search={(t) => `${t.title} ${t.assigneeName}`} emptyTitle="لا توجد مهام" columns={[
         { key: 'title', label: 'المهمة', mobile: 'title' }, { key: 'assignee', label: 'المكلّف', mobile: 'sub', value: (t) => t.assigneeName || '—' },
         { key: 'priority', label: 'الأولوية', mobile: 'meta', value: (t) => PRIORITY_LABELS[t.priority as keyof typeof PRIORITY_LABELS], render: (t) => <Badge tone={t.priority === 'urgent' ? 'bad' : t.priority === 'high' ? 'warn' : 'neutral'}>{PRIORITY_LABELS[t.priority as keyof typeof PRIORITY_LABELS]}</Badge> },
